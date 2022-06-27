@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 )
 
@@ -9,6 +10,7 @@ import (
 // a slice of strings
 type deck []string
 
+// generate a new deck
 func newDeck() deck {
 	cards := deck{}
 
@@ -23,17 +25,29 @@ func newDeck() deck {
 	return cards
 }
 
+// print all cards in the deck
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
 	}
 }
 
+// deal a hand of cards
 func deal(d deck, nCards int) (deck, deck) {
 
 	return d[:nCards], d[nCards:]
 }
 
+// convert deck to a string to facilitate saving
 func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
+}
+
+// function to write deck to disk
+func (d deck) saveToFile(filename string) error {
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+
+	//if err != nil {
+	//return err
+	//}
 }
