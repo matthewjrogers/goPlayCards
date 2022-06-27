@@ -1,0 +1,2 @@
+# goPlayCards
+Toy go application
